@@ -44,7 +44,7 @@ const ValentineInvite = () => {
       // סיום האינטרו
       setShowEnvelope(true);
     }
-  }, [hasStarted, introIndex]);
+  }, [hasStarted, introIndex, introLines.length]);
 
   // --- פונקציית התחלה (Start) ---
   const handleStart = () => {
