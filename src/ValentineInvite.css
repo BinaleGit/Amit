@@ -6,32 +6,23 @@
   justify-content: center;
   align-items: center;
   min-height: 100vh;
-  background: #000; /* מתחיל שחור */
+  background: #000;
   font-family: 'Assistant', sans-serif;
   overflow: hidden;
   perspective: 1200px;
   direction: rtl;
+  touch-action: none;
 }
 
-/* --- מסך אינטרו וסיפור --- */
+/* --- אינטרו --- */
 .intro-screen {
-  position: fixed;
-  top: 0; left: 0; right: 0; bottom: 0;
+  position: fixed; top: 0; left: 0; right: 0; bottom: 0;
   background: #000;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  z-index: 100;
-  color: white;
-  padding: 20px;
+  display: flex; justify-content: center; align-items: center;
+  z-index: 100; color: white; padding: 20px;
 }
-
-.start-btn-cursor {
-  cursor: pointer;
-}
-
+.start-btn-cursor { cursor: pointer; }
 .intro-content { text-align: center; animation: fadeIn 1s ease-in-out; }
-
 .intro-title {
   font-size: 2.5rem; font-weight: 300; margin-bottom: 20px;
   background: linear-gradient(90deg, #fff, #ffcdd2, #fff);
@@ -39,306 +30,188 @@
   -webkit-background-clip: text; -webkit-text-fill-color: transparent;
   animation: shine 3s linear infinite;
 }
-
-.intro-subtitle {
-  font-size: 1.2rem; color: #888; letter-spacing: 2px;
-  animation: pulseText 2s infinite ease-in-out;
-}
-
+.intro-subtitle { font-size: 1.2rem; color: #888; animation: pulseText 2s infinite; }
 .music-hint { margin-top: 20px; font-size: 0.9rem; color: #555; }
 
-/* --- טקסטים של הסיפור --- */
-.story-text-container {
-  position: relative;
-  width: 100%;
-  max-width: 600px;
-  height: 200px; /* גובה קבוע כדי שהטקסט יתחלף באותו מקום */
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
+/* טקסטים מתחלפים */
+.story-text-container { position: relative; width: 100%; max-width: 600px; height: 200px; display: flex; justify-content: center; align-items: center; }
+.story-text { position: absolute; width: 100%; text-align: center; font-size: 1.8rem; font-weight: 400; color: #fff; opacity: 0; transition: opacity 1s ease-in-out; line-height: 1.5; white-space: pre-line; }
+.story-text.visible { opacity: 1; animation: floatText 4s ease-in-out; }
 
-.story-text {
-  position: absolute;
-  width: 100%;
-  text-align: center;
-  font-size: 1.8rem;
-  font-weight: 400;
-  white-space: pre-line;
-  color: #fff;
-  opacity: 0;
-  transition: opacity 1s ease-in-out;
-  line-height: 1.5;
-}
-
-/* כשהטקסט פעיל - הוא מופיע */
-.story-text.visible {
-  opacity: 1;
-  animation: floatText 4s ease-in-out;
-}
-
-@keyframes floatText {
-  0% { transform: translateY(10px); }
-  50% { transform: translateY(-5px); }
-  100% { transform: translateY(0); }
-}
-
+@keyframes floatText { 0% { transform: translateY(10px); } 50% { transform: translateY(-5px); } 100% { transform: translateY(0); } }
 @keyframes shine { to { background-position: 200% center; } }
 @keyframes pulseText { 0%, 100% { opacity: 0.5; } 50% { opacity: 1; } }
 
-/* --- אנימציות כניסה למעטפה --- */
-.entrance-anim {
-  animation: flyInBig 1.5s cubic-bezier(0.19, 1, 0.22, 1) forwards;
-}
-
+/* --- אנימציות --- */
+.entrance-anim { animation: flyInBig 1.5s cubic-bezier(0.19, 1, 0.22, 1) forwards; }
 @keyframes flyInBig {
   0% { transform: translateY(800px) scale(0.2) rotate(-20deg); opacity: 0; }
   60% { transform: translateY(-30px) scale(1.05) rotate(5deg); opacity: 1; }
   100% { transform: translateY(0) scale(1) rotate(0); opacity: 1; }
 }
 
-/* ... מכאן והלאה כל ה-CSS הישן של המעטפה נשאר אותו דבר ... */
-/* (נא להעתיק את שאר הקובץ הקודם: floating-bg, envelope, card וכו') */
-.floating-bg span {
-  position: absolute;
-  bottom: -50px;
-  font-size: 24px;
-  animation: floatUp 15s linear infinite;
-  opacity: 0.2;
-  z-index: 0;
-}
+.floating-bg span { position: absolute; bottom: -50px; font-size: 24px; animation: floatUp 15s linear infinite; opacity: 0.2; z-index: 0; }
 .floating-bg span:nth-child(1) { left: 10%; animation-duration: 9s; }
 .floating-bg span:nth-child(2) { left: 25%; animation-duration: 12s; font-size: 30px; }
 .floating-bg span:nth-child(3) { left: 70%; animation-duration: 7s; }
 .floating-bg span:nth-child(4) { left: 85%; animation-duration: 11s; }
+@keyframes floatUp { 0% { transform: translateY(0) rotate(0); opacity: 0; } 20% { opacity: 0.4; } 100% { transform: translateY(-110vh) rotate(360deg); opacity: 0; } }
 
-@keyframes floatUp {
-  0% { transform: translateY(0) rotate(0); opacity: 0; }
-  20% { opacity: 0.4; }
-  100% { transform: translateY(-110vh) rotate(360deg); opacity: 0; }
-}
-
-.perspective-container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  z-index: 10;
-}
+/* --- מעטפה --- */
+.perspective-container { display: flex; flex-direction: column; align-items: center; z-index: 10; }
 
 .envelope-wrapper {
-  position: relative;
-  width: 340px;
-  height: 220px;
-  cursor: pointer;
-  transform-style: preserve-3d;
-  transition: transform 0.1s ease-out;
+  position: relative; width: 340px; height: 220px; cursor: pointer;
+  transform-style: preserve-3d; transition: transform 0.1s ease-out;
   box-shadow: 0 30px 60px rgba(0,0,0,0.15);
 }
-
 .envelope-wrapper.open {
-  transform: rotateX(0) rotateY(0) translateY(100px) !important;
+  transform: rotateX(0) rotateY(0) translateY(250px) !important;
   cursor: default;
 }
+.envelope-back { position: absolute; width: 100%; height: 100%; background: #d32f2f; border-radius: 12px; transform: translateZ(-2px); z-index: 1; }
+.envelope-front { position: absolute; bottom: 0; width: 0; height: 0; border-left: 170px solid transparent; border-right: 170px solid transparent; border-bottom: 130px solid #ef5350; transform: translateZ(10px); z-index: 3; border-radius: 0 0 12px 12px; pointer-events: none; }
+.envelope-flap { position: absolute; top: 0; width: 0; height: 0; border-left: 170px solid transparent; border-right: 170px solid transparent; border-top: 140px solid #d32f2f; transform-origin: top; transform: translateZ(12px); transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1), z-index 0.2s; z-index: 4; border-radius: 12px 12px 0 0; filter: drop-shadow(0 2px 5px rgba(0,0,0,0.1)); }
+.envelope-wrapper.open .envelope-flap { transform: rotateX(180deg); z-index: 1; }
 
-.envelope-back {
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  background: #d32f2f;
-  border-radius: 12px;
-  transform: translateZ(-2px);
-  z-index: 1;
-}
-
-.envelope-front {
-  position: absolute;
-  bottom: 0;
-  width: 0;
-  height: 0;
-  border-left: 170px solid transparent;
-  border-right: 170px solid transparent;
-  border-bottom: 130px solid #ef5350;
-  transform: translateZ(10px);
-  z-index: 3;
-  border-radius: 0 0 12px 12px;
-  pointer-events: none;
-}
-
-.envelope-flap {
-  position: absolute;
-  top: 0;
-  width: 0;
-  height: 0;
-  border-left: 170px solid transparent;
-  border-right: 170px solid transparent;
-  border-top: 140px solid #d32f2f;
-  transform-origin: top;
-  transform: translateZ(12px);
-  transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1), z-index 0.2s;
-  z-index: 4;
-  border-radius: 12px 12px 0 0;
-  filter: drop-shadow(0 2px 5px rgba(0,0,0,0.1));
-}
-
-.envelope-wrapper.open .envelope-flap {
-  transform: rotateX(180deg);
-  z-index: 1;
-}
-
+/* --- כרטיס --- */
 .card {
-  position: absolute;
-  bottom: 0;
-  left: 15px;
-  right: 15px;
-  height: 100%; 
+  position: absolute; bottom: 0; left: 15px; right: 15px; height: 100%;
   background: linear-gradient(135deg, #fffdf5 0%, #fff8e1 100%);
-  border: 1px solid #e6d5b8;
-  border-radius: 10px;
-  padding: 25px 20px;
-  box-sizing: border-box;
-  transform-style: preserve-3d;
-  transition: all 0.8s cubic-bezier(0.68, -0.55, 0.265, 1.55) 0.3s;
-  z-index: 2;
-  overflow: hidden;
-  display: flex;
-  flex-direction: column;
-  box-shadow: 
-    0 10px 20px rgba(0,0,0,0.1), 
-    inset 0 0 0 1px rgba(255,255,255,0.5);
+  border: 1px solid #e6d5b8; border-radius: 10px; padding: 25px 20px; box-sizing: border-box;
+  transform-style: preserve-3d; transition: all 0.8s cubic-bezier(0.68, -0.55, 0.265, 1.55) 0.3s;
+  z-index: 2; overflow: hidden; display: flex; flex-direction: column;
+  box-shadow: 0 10px 20px rgba(0,0,0,0.1), inset 0 0 0 1px rgba(255,255,255,0.5);
 }
-
 .envelope-wrapper.open .card {
-  transform: translateY(-140px);
-  height: 460px; 
-  z-index: 5;
-  box-shadow: 0 15px 35px rgba(0,0,0,0.2);
-  overflow: visible;
+  transform: translateY(-140px); height: 530px; /* הוארך */
+  z-index: 5; box-shadow: 0 15px 35px rgba(0,0,0,0.2); overflow: visible;
 }
 
-.card-shine {
-  position: absolute;
-  top: 0; left: 0; right: 0; bottom: 0;
-  border-radius: 10px;
-  z-index: 3;
-  background: radial-gradient(
-    circle at var(--mouse-x) var(--mouse-y), 
-    rgba(255, 255, 255, 0.4) 0%, 
-    transparent 60%
-  );
-  opacity: 0.6;
-  pointer-events: none;
-  mix-blend-mode: overlay;
-}
-
-.card-content {
-  opacity: 0;
-  transition: opacity 0.5s ease 0.6s;
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  color: #3e2723;
-  transform-style: preserve-3d;
-}
-
+.card-shine { position: absolute; top: 0; left: 0; right: 0; bottom: 0; border-radius: 10px; z-index: 3; background: radial-gradient(circle at var(--mouse-x) var(--mouse-y), rgba(255, 255, 255, 0.4) 0%, transparent 60%); opacity: 0.6; pointer-events: none; mix-blend-mode: overlay; }
+.card-content { opacity: 0; transition: opacity 0.5s ease 0.6s; height: 100%; display: flex; flex-direction: column; color: #3e2723; transform-style: preserve-3d; }
 .envelope-wrapper.open .card-content { opacity: 1; }
+.floating-content { transform: translateZ(20px); }
+.card-header { text-align: center; border-bottom: 1px solid #d7ccc8; padding-bottom: 10px; margin-bottom: 15px; }
+.card-header h2 { margin: 0; font-size: 18px; color: #b71c1c; font-weight: 700; transform: translateZ(10px); }
 
-.floating-content {
-  transform: translateZ(20px);
-}
+/* --- כרטיסי גירוד --- */
+.menu-list { display: flex; flex-direction: column; gap: 15px; flex-grow: 1; padding-bottom: 10px; }
+.menu-item .label { font-size: 12px; color: #8d6e63; font-weight: bold; margin-bottom: 2px; display: block; }
+.scratch-card-wrapper { position: relative; width: 100%; height: 40px; border-radius: 8px; overflow: hidden; background: #fff8e1; border: 1px dashed #d7ccc8; }
+.hidden-content { position: absolute; top: 0; left: 0; width: 100%; height: 100%; display: flex; justify-content: center; align-items: center; z-index: 1; padding: 0 10px; }
+.hidden-content .value { font-size: 14px; font-weight: 700; color: #d32f2f; text-align: center; }
+.scratch-canvas { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 2; cursor: crosshair; touch-action: none; }
+/* מחקתי את ה-Class של ה-faded. עכשיו זה לא ייעלם לעולם */
 
-.card-header {
-  text-align: center;
-  border-bottom: 1px solid #d7ccc8;
-  padding-bottom: 10px;
-  margin-bottom: 15px;
+/* --- החלק התחתון (מוסתר בהתחלה) --- */
+.footer-section {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: all 1s ease-out;
+  pointer-events: none;
 }
-.card-header h2 { 
-  margin: 0; font-size: 18px; color: #b71c1c; font-weight: 700; 
-  transform: translateZ(10px);
+.footer-section.visible {
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto;
 }
-
-.menu-list { display: flex; flex-direction: column; gap: 12px; flex-grow: 1; }
-.menu-item { display: flex; flex-direction: column; }
-.menu-item .label { font-size: 12px; color: #8d6e63; font-weight: bold; }
-.menu-item .value { font-size: 15px; font-weight: 600; color: #3e2723; }
 
 .divider-line { height: 1px; background: #d7ccc8; margin: 15px 0; }
-.date-display { 
-  text-align: center; font-size: 16px; font-weight: bold; color: #b71c1c; margin-bottom: 10px;
-  text-shadow: 0 2px 4px rgba(0,0,0,0.05);
-}
+.date-display { text-align: center; font-size: 16px; font-weight: bold; color: #b71c1c; margin-bottom: 10px; text-shadow: 0 2px 4px rgba(0,0,0,0.05); }
+.question-text { text-align: center; font-size: 18px; font-weight: 700; color: #d32f2f; margin: 5px 0 20px; transform: translateZ(25px); }
 
-.question-text {
-  text-align: center; font-size: 18px; font-weight: 700; color: #d32f2f; margin: 5px 0 20px;
-  transform: translateZ(25px);
-}
-
-.buttons-container {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  position: relative;
-  height: 45px;
-  direction: ltr;
-  transform: translateZ(30px);
-}
-
-.btn {
-  width: 45%; height: 40px; border: none; border-radius: 20px;
-  font-weight: 700; font-family: 'Assistant', sans-serif;
-  cursor: pointer; transition: transform 0.2s; font-size: 15px;
-}
-
-.yes-btn {
-  background: linear-gradient(45deg, #43a047, #66bb6a);
-  color: white; box-shadow: 0 4px 10px rgba(67, 160, 71, 0.3); z-index: 10;
-}
+.buttons-container { display: flex; justify-content: space-between; align-items: center; position: relative; height: 45px; direction: ltr; transform: translateZ(30px); }
+.btn { width: 45%; height: 40px; border: none; border-radius: 20px; font-weight: 700; font-family: 'Assistant', sans-serif; cursor: pointer; transition: transform 0.2s; font-size: 15px; }
+.yes-btn { background: linear-gradient(45deg, #43a047, #66bb6a); color: white; box-shadow: 0 4px 10px rgba(67, 160, 71, 0.3); z-index: 10; }
 .yes-btn:active { transform: scale(0.95); }
+.no-btn { background: #eceff1; color: #78909c; position: absolute; right: 0; }
 
-.no-btn {
-  background: #eceff1; color: #78909c; position: absolute; right: 0;
-}
-
-.wax-seal {
-  width: 50px; height: 50px; background: #b71c1c; border-radius: 50%;
-  position: absolute; top: 55%; left: 50%;
-  transform: translate(-50%, -50%) translateZ(15px);
-  display: flex; align-items: center; justify-content: center;
-  border: 3px solid #e57373; z-index: 5;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.2);
-}
-.wax-seal span { color: #ffcdd2; font-family: serif; font-style: italic; font-weight: bold; }
-
-.hint-sticker {
-  position: absolute;
-  bottom: 20px; left: 50%;
-  transform: translateX(-50%) translateZ(20px);
-  font-size: 45px; z-index: 20;
-  pointer-events: none;
-  animation: hintBounce 1.5s infinite ease-in-out;
-  filter: drop-shadow(0 10px 10px rgba(0,0,0,0.2));
-}
-
-@keyframes hintBounce {
-  0%, 100% { transform: translateX(-50%) translateZ(20px) translateY(0); }
-  50% { transform: translateX(-50%) translateZ(20px) translateY(-10px); }
-}
-
-.success-screen {
-  text-align: center;
-  animation: scaleUp 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-  background: rgba(255, 255, 255, 0.95);
-  padding: 40px; border-radius: 20px;
-  box-shadow: 0 20px 60px rgba(0,0,0,0.1);
-  max-width: 90%;
-}
+.success-screen { text-align: center; animation: scaleUp 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275); background: rgba(255, 255, 255, 0.95); padding: 40px; border-radius: 20px; box-shadow: 0 20px 60px rgba(0,0,0,0.1); max-width: 90%; }
 .glow-text { font-size: 3rem; color: #ff4757; text-shadow: 0 0 20px rgba(255, 71, 87, 0.4); margin: 0; }
 .subtitle-glow { color: #555; margin-top: 5px; }
 .heart-beat-final { font-size: 60px; animation: pulse 1s infinite; margin: 20px 0; }
-.ticket-stub {
-  margin-top: 20px; border: 2px dashed #ddd; padding: 15px;
-  border-radius: 10px; background: #fdfdfd;
-}
-
+.ticket-stub { margin-top: 20px; border: 2px dashed #ddd; padding: 15px; border-radius: 10px; background: #fdfdfd; }
 @keyframes pulse { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.15); } }
 @keyframes scaleUp { 0% { transform: scale(0); opacity: 0; } 100% { transform: scale(1); opacity: 1; } }
+
+/* --- מנעול --- */
+.center-lock {
+  position: absolute; top: 55%; left: 50%;
+  transform: translate(-50%, -50%) translateZ(25px);
+  font-size: 60px; z-index: 50;
+  text-shadow: 0 5px 15px rgba(0,0,0,0.3);
+  cursor: pointer;
+  animation: floatLock 2s ease-in-out infinite;
+}
+@keyframes floatLock {
+  0%, 100% { transform: translate(-50%, -50%) translateZ(25px) scale(1); }
+  50% { transform: translate(-50%, -50%) translateZ(25px) scale(1.1); }
+}
+.center-lock.breaking-anim { animation: shatterLock 2s forwards linear; }
+
+@keyframes shatterLock {
+  0% { transform: translate(-50%, -50%) translateZ(25px) rotate(0); }
+  10% { transform: translate(-50%, -50%) translateZ(25px) rotate(-10deg); }
+  20% { transform: translate(-50%, -50%) translateZ(25px) rotate(10deg); }
+  40% { transform: translate(-50%, -50%) translateZ(25px) rotate(10deg); filter: hue-rotate(90deg); }
+  50% { transform: translate(-50%, -50%) translateZ(50px) scale(1.2) rotate(-20deg); }
+  80% { transform: translate(-50%, -50%) translateZ(100px) scale(2) rotate(180deg); opacity: 1; filter: hue-rotate(180deg) brightness(2); }
+  100% { transform: translate(-50%, -50%) translateZ(150px) scale(3) rotate(360deg); opacity: 0; }
+}
+
+/* --- מקלדת --- */
+.keypad-overlay {
+  position: fixed; top: 0; left: 0; right: 0; bottom: 0;
+  background: rgba(0,0,0,0.85);
+  display: flex; justify-content: center; align-items: center; z-index: 1000;
+  animation: fadeIn 0.3s ease-out;
+}
+.keypad-box {
+  background: #fff; padding: 25px; border-radius: 20px; width: 280px; text-align: center;
+  box-shadow: 0 20px 50px rgba(0,0,0,0.6);
+  animation: slideUp 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+@keyframes slideUp { from { transform: translateY(100px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+.keypad-box h3 { margin: 0; color: #333; font-weight: 700; }
+.hint-text { font-size: 0.9rem; color: #777; margin-bottom: 20px; }
+.code-display {
+  background: #f5f5f5; padding: 15px; border-radius: 12px; margin-bottom: 20px;
+  font-size: 28px; letter-spacing: 15px; color: #ccc; min-height: 40px;
+  display: flex; justify-content: center;
+}
+.code-display span.filled { color: #333; }
+.keys-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-bottom: 15px; }
+.keys-grid button {
+  padding: 15px 0; font-size: 20px; border: none; background: #eceff1;
+  border-radius: 12px; cursor: pointer; font-weight: 600; color: #455a64;
+}
+.del-btn { background: #ffebee !important; color: #d32f2f !important; }
+.cancel-btn { background: transparent; border: none; color: #999; font-size: 14px; cursor: pointer; text-decoration: underline; }
+.shake { animation: shake 0.4s cubic-bezier(.36,.07,.19,.97) both; }
+@keyframes shake {
+  10%, 90% { transform: translate3d(-1px, 0, 0); }
+  20%, 80% { transform: translate3d(2px, 0, 0); }
+  30%, 50%, 70% { transform: translate3d(-4px, 0, 0); }
+  40%, 60% { transform: translate3d(4px, 0, 0); }
+}
+
+/* --- תיקון קריטי למובייל --- */
+@media (max-width: 600px) {
+  /* מזיזים את הסקייל למסגרת העוטפת כדי לעקוף את ה-JS */
+  .perspective-container {
+    transform: scale(0.95);
+    margin-top: 50px;
+    width: 100%;
+  }
+
+  /* כשהמעטפה נפתחת במובייל - מורידים אותה חזק למטה */
+  .envelope-wrapper.open {
+    transform: rotateX(0) rotateY(0) translateY(240px) !important;
+  }
+  
+  .envelope-wrapper.open .card {
+    height: 520px;
+    transform: translateY(-135px);
+  }
+}
