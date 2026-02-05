@@ -207,7 +207,7 @@ const ValentineInvite = () => {
 
   const getNoButtonText = () => {
     if (runAwayCount === 0) return "...לא";
-    const messages = ["לא יפה עמית", "מצחיק!", "תשמעי אין לך ברירה", "נו מה"];
+    const messages = ["לא יפה עמית", "!מצחיק", "תשמעי אין לך ברירה", "נו מה"];
     return messages[(runAwayCount - 1) % messages.length];
   };
 
@@ -392,7 +392,7 @@ const ValentineInvite = () => {
                         <p className="question-text">האם תרצי להיות הוולנטיין שלי?</p>
                         
                         <div className="buttons-container">
-                          <button className="btn yes-btn" onClick={(e) => { e.stopPropagation(); handleAccept(); }}>כן! 😍</button>
+                          <button className="btn yes-btn" onClick={(e) => { e.stopPropagation(); handleAccept(); }}>😍 !כן</button>
                           <button className="btn no-btn" style={noBtnStyle} onMouseEnter={moveButton} onTouchStart={moveButton} onClick={(e) => e.stopPropagation()}>{getNoButtonText()}</button>
                         </div>
                       </div>
