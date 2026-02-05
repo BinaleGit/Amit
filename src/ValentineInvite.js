@@ -30,7 +30,7 @@ const ValentineInvite = () => {
 
 
   
-  const musicRef = useRef(new Audio('/song.mp3'));
+  const musicRef = useRef(new Audio(`${process.env.PUBLIC_URL || ''}/song.mp3`));
 
   // --- ניהול רצף האינטרו (טיימינג איטי יותר) ---
   useEffect(() => {
@@ -104,7 +104,7 @@ const ValentineInvite = () => {
   };
 
   const playFileSound = (fileName) => {
-    const audio = new Audio(`/sounds/${fileName}`);
+    const audio = new Audio(`${process.env.PUBLIC_URL || ''}/sounds/${fileName}`);
     audio.volume = 0.5;
     audio.play().catch(() => {});
   };
