@@ -114,14 +114,14 @@ const ValentineInvite = () => {
   const [mousePos, setMousePos] = useState({ x: 50, y: 50 });
 
   // --- מעקב אחרי כרטיסים (לפי מזהה ייחודי לכל אחד) ---
-  const [scratchedCards, setScratchedCards] = useState({
+  const [, setScratchedCards] = useState({
     card1: false,
     card2: false,
     card3: false
   });
   const [showFooter, setShowFooter] = useState(false);
 
-  const SECRET_CODE = "1402"; 
+  const SECRET_CODE = "2901"; 
   const musicRef = useRef(new Audio(`${process.env.PUBLIC_URL || ''}/song.mp3`));
 
   const introLines = [
